@@ -1,0 +1,11 @@
+@import model.Todo
+
+@(todos: Todo, vv: model.ViewValueCommon)
+@common.Default(vv) {
+    <div id="todo-detail">
+        <div>id: @todos.id</div>
+        <div>content: @todos.title</div>
+    </div>
+
+    <a href="/todoList">Back to category list</a>
+}

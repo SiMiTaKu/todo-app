@@ -4,5 +4,7 @@ package model
 // 参考: https://docs.scala-lang.org/ja/tour/case-classes.html
 case class Category(
   id:      Option[Long],
-  content: String
+  name:    String,
+  slug:    String,
+  color:   Option[Int]
 )

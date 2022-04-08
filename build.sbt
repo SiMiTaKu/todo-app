@@ -3,15 +3,10 @@ import sbt._
 
 name := """to-do-sample"""
 organization := "com.example"
-
 version := "1.0-SNAPSHOT"
-
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
-
 scalaVersion := "2.12.8"
-
 libraryDependencies += guice
-
 resolvers ++= Seq(
   "IxiaS Releases" at "http://maven.ixias.net.s3-ap-northeast-1.amazonaws.com/releases"
 )
@@ -31,5 +26,10 @@ libraryDependencies ++= Seq(
 
   // play-slickの5.0.0ではslick 3.3.2を利用しているため、codegenも同様に3.3.2を指定しています。
   "com.typesafe.slick"     %% "slick-codegen"         % "3.3.2",
+
+  "com.typesafe"            % "config"                % "1.4.0"
 )
 
+// add code generation task
+lazy val slickCodeGen = taskKey[Unit]("execute Slick CodeGen")
+slickCodeGen         := (runMain in Compile).toTask(" tasks.SlickCodeGen").value

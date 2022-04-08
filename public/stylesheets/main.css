@@ -43,3 +43,47 @@ body {
 .info {
   display: none;
 }
+
+
+.category-List li{
+  display: inline;
+}
+
+.card {
+  border-bottom: 1px solid rgb(56, 68, 77);
+  width:         100%;
+  padding:       5px;
+  cursor:        pointer;
+}
+
+.card .card_content {
+  padding: 5px;
+}
+
+.card_footer {
+  text-align: right;
+}
+
+.card_footer .card_footer_item {
+  display:     inline-block;
+  margin-left: 5px;
+}
+
+.card_footer .card_footer_item a:link,
+.card_footer .card_footer_item i {
+  color:     Black;
+  font-size: 0.9em;
+  cursor:    pointer;
+}
+
+body {
+  background-color: White;
+  color:            Black;
+  font-family:      "Noto Sans Japanese", sans-serif;
+}
+
+h1 {
+  margin:        0;
+  padding:       20px 10px;
+  border-bottom: 1px solid rgb(70, 70, 77);
+}
