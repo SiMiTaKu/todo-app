@@ -1,0 +1,22 @@
+@import model.Category
+
+@(categories: Seq[Category], vv: model.ViewValueCommon)
+@common.Default(vv){
+
+    <ul>
+        @for(category <- categories){
+            <li>
+                <a href="@controllers.todo.routes.TodoController.categoryShow(category.id.getOrElse(0))">@category.content</a>
+            </li>
+            <li>
+                <a href = "@controllers.todo.routes.TodoController.categoryEdit(category.id.getOrElse(0))">
+                    <button type="button">編集</button>
+                </a>
+            </li>
+        }
+    </ul>
+
+    <a href="/category/store">Category Register Form</a>
+    <br>
+    <a href="/">Back to home</a>
+}

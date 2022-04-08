@@ -22,9 +22,14 @@ libraryDependencies ++= Seq(
   "net.ixias" %% "ixias-play" % "1.1.36",
   "mysql"          % "mysql-connector-java" % "5.1.+",
   "ch.qos.logback" % "logback-classic"      % "1.1.+",
-)
-// Adds additional packages into Twirl
-//TwirlKeys.templateImports += "com.example.controllers._"
 
-// Adds additional packages into conf/routes
-// play.sbt.routes.RoutesKeys.routesImport += "com.example.binders._"
+  // 最新のplay-slickを指定。
+  "com.typesafe.play"      %% "play-slick"            % "5.0.0",
+
+  // https://github.com/playframework/play-slick#all-releases
+  "com.typesafe.play"      %% "play-slick-evolutions" % "5.0.0",
+
+  // play-slickの5.0.0ではslick 3.3.2を利用しているため、codegenも同様に3.3.2を指定しています。
+  "com.typesafe.slick"     %% "slick-codegen"         % "3.3.2",
+)
+
