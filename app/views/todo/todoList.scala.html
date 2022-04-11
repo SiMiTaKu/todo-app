@@ -1,4 +1,4 @@
-@import model.Todo
+@import slick.model.Todo
 @(todos: Seq[Todo], vv: model.ViewValueCommon)(implicit messagesProvider: MessagesProvider, requestHeader: RequestHeader)
 
 @common.Default(vv){
@@ -6,8 +6,21 @@
         @* cardクリック時の遷移先を保持するためにdata-href属性を作成して設定  *@
         <div class="card" data-href="@controllers.todo.routes.TodoController.todoShow(todo.id.getOrElse(0))">
             <div class="card_content">
+            @todo.id
+            </div>
+
+            <div class="card_content">
+            @todo.category_id
+            </div>
+
+            <div class="card_content">
             @todo.title
             </div>
+
+            <div class="card_content">
+            @todo.updatedAt
+            </div>
+
             <div class="card_footer">
                 <div class="card_footer_item">
                     <a href="@controllers.todo.routes.TodoController.todoEdit(todo.id.getOrElse(0))">

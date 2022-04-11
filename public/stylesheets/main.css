@@ -57,7 +57,8 @@ body {
 }
 
 .card .card_content {
-  padding: 5px;
+  padding: 5px 20px;
+  display: inline-block;
 }
 
 .card_footer {

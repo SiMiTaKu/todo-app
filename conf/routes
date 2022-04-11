@@ -27,7 +27,7 @@ GET     /todoList                     controllers.todo.TodoController.todoList
 
 GET     /todo/$id<[0-9]+>             controllers.todo.TodoController.todoShow(id: Long)
 
-GET     /todo/store                   controllers.todo.TodoController.categoryRegister
+GET     /todo/store                   controllers.todo.TodoController.todoRegister
 
 POST    /todo/store                   controllers.todo.TodoController.todoStore
 

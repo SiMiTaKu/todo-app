@@ -1,20 +1,27 @@
 package controllers.todo
 
-import model.{Category, ViewValueHome, Todo}
-
+import model.{Category, ViewValueHome}
+import slick.model.Todo
+import slick.repositories.TodoRepository
+import scala.concurrent.ExecutionContext
 import play.api.data.Form
 import play.api.data.Forms.{mapping, nonEmptyText}
 import play.api.i18n.I18nSupport
+
 import javax.inject.{Inject, Singleton}
 import play.api.mvc.{Action, AnyContent, BaseController, ControllerComponents, Request}
+
+import java.time.LocalDateTime
 
 
 case class CategoryFormData(content: String)
 case class TodoFormData(content: String)
 
 @Singleton
-class TodoController @Inject()(val controllerComponents: ControllerComponents)
-  extends BaseController with I18nSupport {
+class TodoController @Inject()(
+      val controllerComponents: ControllerComponents,
+      todoRepository:           TodoRepository
+  )(implicit ec: ExecutionContext) extends BaseController with I18nSupport {
 
   val vvError = ViewValueHome(
     title  = "404 Not Found",
@@ -147,15 +154,19 @@ class TodoController @Inject()(val controllerComponents: ControllerComponents)
 
 
 
-  val todos = scala.collection.mutable.ArrayBuffer((1L to 10L).map(i => Todo(Some(i), Some(i), s"test todo${i.toString}", "do what", Some(1))): _*)
+  val todos = scala.collection.mutable.ArrayBuffer((1L to 10L).map(i => Todo(Some(i), Some(i), s"test todo${i.toString}", s"あs${i.toString}", Some(i.toInt), LocalDateTime.now(), LocalDateTime.now())): _*)
 
-  def todoList() = Action { implicit request: Request[AnyContent] =>
+  def todoList() = Action async{ implicit request: Request[AnyContent] =>
     val vv = ViewValueHome(
       title  = "Todo List",
       cssSrc = Seq("main.css"),
       jsSrc  = Seq("main.js")
     )
-    Ok(views.html.todo.todoList(todos.toSeq, vv))
+    for {
+      results <- todoRepository.all()
+    }yield{
+      Ok(views.html.todo.todoList(results, vv))
+    }
   }
 
   def todoShow(id: Long) = Action { implicit request: Request[AnyContent] =>
@@ -199,7 +210,7 @@ class TodoController @Inject()(val controllerComponents: ControllerComponents)
       },
 
       (todoFormData: TodoFormData) =>{
-        todos += Todo(Some(categories.size + 1L), Some(categories.size + 1L), todoFormData.content, "do what", Some(1))
+        todos += Todo(Some(todos.size + 1L), Some(todos.size + 1L), todoFormData.content, s"あ${Some(todos.size+ 1L)}",  Some(1), LocalDateTime.now(), LocalDateTime.now())
         Redirect(("/todoList"))
       }
     )

@@ -1,5 +1,3 @@
-import sbt.Keys._
-import sbt._
 
 name := """to-do-sample"""
 organization := "com.example"
