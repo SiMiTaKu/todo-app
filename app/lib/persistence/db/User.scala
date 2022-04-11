@@ -59,3 +59,4 @@ case class UserTable[P <: JdbcProfile]()(implicit val driver: P)
     )
   }
 }
+
