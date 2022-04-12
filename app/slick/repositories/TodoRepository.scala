@@ -16,21 +16,16 @@ class TodoRepository @Inject()(
 
   private val query = new TableQuery(tag => new TodoTable(tag))
 
-  // ########## [DBIO Methods] ##########
-
-  /**
-   * tweetを全件取得
-   */
   def all(): Future[Seq[Todo]] = db.run(query.result)
 
   // ########## [Table Mapping] ##########
   private class TodoTable(_tableTag: Tag) extends Table[Todo](_tableTag, Some("to_do"), "to_do") {
     // Tableとのカラムマッピング
     val id:          Rep[Long]          = column[Long]("id", O.AutoInc, O.PrimaryKey)
-    val category_Id: Rep[Long]          = column[Long]("category_Id", O.AutoInc)
+    val category_Id: Rep[Long]          = column[Long]("category_Id")
     val title:       Rep[String]        = column[String]("title", O.Length(120,varying=true))
     val body:        Rep[String]        = column[String]("body",  O.Length(120,varying=true))
-    val state:       Rep[Int]           = column[Int]("state", O.AutoInc)
+    val state:       Rep[Int]           = column[Int]("state")
     val createdAt:   Rep[LocalDateTime] = column[LocalDateTime]("created_at")
     val updatedAt:   Rep[LocalDateTime] = column[LocalDateTime]("created_at")
 

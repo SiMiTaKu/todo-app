@@ -8,6 +8,8 @@ case class Todo(
   id:          Option[Long],
   category_id: Option[Long],
   title:       String,
+  body:        String,
+  state:       Option[Int],
   postedAt:  LocalDateTime = LocalDateTime.now,
   createdAt: LocalDateTime = LocalDateTime.now
 )

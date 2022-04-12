@@ -1,21 +1,27 @@
+import sbt.Keys._
+import sbt._
 
 name := """to-do-sample"""
 organization := "com.example"
 version := "1.0-SNAPSHOT"
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 scalaVersion := "2.12.8"
-libraryDependencies += guice
+
+
 resolvers ++= Seq(
   "IxiaS Releases" at "http://maven.ixias.net.s3-ap-northeast-1.amazonaws.com/releases"
 )
 
+
 libraryDependencies ++= Seq(
   guice,
   evolutions,
+
   "net.ixias"              %% "ixias"                 % "1.1.36",
   "net.ixias"              %% "ixias-aws"             % "1.1.36",
   "net.ixias"              %% "ixias-play"            % "1.1.36",
   "ch.qos.logback"          % "logback-classic"       % "1.1.+",
+
 
   // 最新のplay-slickを指定。
   "org.scalatestplus.play" %% "scalatestplus-play"    % "5.0.0" % Test,

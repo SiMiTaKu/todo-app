@@ -19,9 +19,9 @@ case class TodoFormData(content: String)
 
 @Singleton
 class TodoController @Inject()(
-      val controllerComponents: ControllerComponents,
-      todoRepository:           TodoRepository
-  )(implicit ec: ExecutionContext) extends BaseController with I18nSupport {
+                                val controllerComponents: ControllerComponents,
+                                todoRepository:           TodoRepository
+                              )(implicit ec: ExecutionContext) extends BaseController with I18nSupport {
 
   val vvError = ViewValueHome(
     title  = "404 Not Found",
@@ -155,7 +155,7 @@ class TodoController @Inject()(
 
 
   val todos = scala.collection.mutable.ArrayBuffer((1L to 10L).map(i => Todo(Some(i), Some(i), s"test todo${i.toString}", s"あs${i.toString}", Some(i.toInt), LocalDateTime.now(), LocalDateTime.now())): _*)
-
+  /*
   def todoList() = Action async{ implicit request: Request[AnyContent] =>
     val vv = ViewValueHome(
       title  = "Todo List",
@@ -164,9 +164,21 @@ class TodoController @Inject()(
     )
     for {
       results <- todoRepository.all()
-    }yield{
+    } yield {
       Ok(views.html.todo.todoList(results, vv))
     }
+  }
+
+   */
+
+  def todoList() = Action { implicit request: Request[AnyContent] =>
+    val vv = ViewValueHome(
+      title = "Todo List",
+      cssSrc = Seq("main.css"),
+      jsSrc = Seq("main.js")
+    )
+    Ok(views.html.todo.todoList(todos.toSeq, vv))
+
   }
 
   def todoShow(id: Long) = Action { implicit request: Request[AnyContent] =>
@@ -272,4 +284,3 @@ class TodoController @Inject()(
     }
   }
 }
-

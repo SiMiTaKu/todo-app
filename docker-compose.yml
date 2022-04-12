@@ -39,8 +39,10 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       # Container内にデータベースを作成
-      MYSQL_DATABASE: to_do
+      MYSQL_DATABASE:      to_do
       # timezoneを設定
+      MYSQL_USER:          docker
+      MYSQL_PASSWORD:      docker
       TZ:                  Asia/Tokyo
     networks:
       - app-net

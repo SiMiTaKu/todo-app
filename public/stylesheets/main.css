@@ -57,8 +57,10 @@ body {
 }
 
 .card .card_content {
-  padding: 5px 20px;
+  padding: 5px;
   display: inline-block;
+  width: 15%;
+  text-align: center;
 }
 
 .card_footer {
