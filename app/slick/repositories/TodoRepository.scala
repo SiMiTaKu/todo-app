@@ -25,14 +25,15 @@ class TodoRepository @Inject()(
     val category_Id: Rep[Long]          = column[Long]("category_Id")
     val title:       Rep[String]        = column[String]("title", O.Length(120,varying=true))
     val body:        Rep[String]        = column[String]("body",  O.Length(120,varying=true))
-    val state:       Rep[Int]           = column[Int]("state")
+    val state:       Rep[Short]           = column[Short]("state")
+    val importance:  Rep[Short]         = column[Short]("importance")
     val createdAt:   Rep[LocalDateTime] = column[LocalDateTime]("created_at")
     val updatedAt:   Rep[LocalDateTime] = column[LocalDateTime]("created_at")
 
     // Plain SQLでデータ取得を行う用のマッピング
     implicit def GetResultTodo(implicit e0: GetResult[Long], e1: GetResult[String], e2: GetResult[LocalDateTime]): GetResult[Todo] = GetResult{
       prs => import prs._
-        Todo.tupled((Some(<<[Long]), Some(<<[Long]),  <<[String], <<[String], Some(<<[Int]), <<[LocalDateTime], <<[LocalDateTime]))
+        Todo.tupled((Some(<<[Long]), Some(<<[Long]),  <<[String], <<[String], Some(<<[Short]), Some(<<[Short]), <<[LocalDateTime], <<[LocalDateTime]))
     }
 
     // model -> db用タプル, dbからのデータ -> modelの変換を記述する処理

@@ -15,16 +15,16 @@ INSERT INTO to_do_category(name,slug,color) values('インフラ','infra',3);
 */
 
 CREATE TABLE to_do (
-                       `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-                       `category_id` bigint(20) unsigned NOT NULL,
-                       `title` VARCHAR(255) NOT NULL,
+                       id          bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                       category_id bigint(20) unsigned NOT NULL,
+                       title       VARCHAR(255) NOT NULL,
                        /*
                        body` TEXT,
                        `state` TINYINT UNSIGNED NOT NULL,
                         */
-                       `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                       `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                       PRIMARY KEY (`id`)
+                       updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                       created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                       PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
