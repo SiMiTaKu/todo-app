@@ -1,7 +1,8 @@
+
 /**
-  * This is a sample of Todo Application.
-  * 
-  */
+ * This is a sample of Todo Application.
+ *
+ */
 
 package lib.persistence.db
 
@@ -43,7 +44,7 @@ case class UserTable[P <: JdbcProfile]()(implicit val driver: P)
 
     type TableElementTuple = (
       Option[Id], String, Short, Status, LocalDateTime, LocalDateTime
-    )
+      )
 
     // DB <=> Scala の相互のmapping定義
     def * = (id.?, name, age, state, updatedAt, createdAt) <> (

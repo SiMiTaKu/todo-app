@@ -1,10 +1,14 @@
 logs
 target
-/.idea
+.idea
 /.idea_modules
 /.classpath
 /.project
 /.settings
 .metals
 /RUNNING_PID
-docker/db/data/
+docker/db/mysql_data
+output
+.sbt
+.cache/coursier
+.ivy2

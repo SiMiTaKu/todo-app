@@ -1,0 +1,11 @@
+@import model.Category
+
+@(categories: Category, vv: model.ViewValueCommon)
+@common.Default(vv) {
+    <div id="category-detail">
+        <div>id: @categories.id</div>
+        <div>content: @categories.name</div>
+    </div>
+
+    <a href="/categoryList">Back to category list</a>
+}

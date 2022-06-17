@@ -1,0 +1,44 @@
+@import slick.model.Todo
+@(todos: Seq[Todo], vv: model.ViewValueCommon)(implicit messagesProvider: MessagesProvider, requestHeader: RequestHeader)
+
+@common.Default(vv){
+    @for(todo <- todos) {
+        @* cardクリック時の遷移先を保持するためにdata-href属性を作成して設定  *@
+        <div class="card" data-href="@controllers.todo.routes.TodoController.todoShow(todo.id.getOrElse(0))">
+            <div class="card_content">
+            @todo.id
+            </div>
+
+            <div class="card_content">
+            @todo.category_id
+            </div>
+
+            <div class="card_content">
+            @todo.title
+            </div>
+
+            <div class="card_content">
+            @todo.updatedAt
+            </div>
+
+            <div class="card_footer">
+                <div class="card_footer_item">
+                    <a href="@controllers.todo.routes.TodoController.todoEdit(todo.id.getOrElse(0))">
+                        <i class="far fa-edit"></i>
+                    </a>
+                </div>
+                <div class="card_footer_item">
+                @helper.form(action = controllers.todo.routes.TodoController.todoDelete()) {
+                    @helper.CSRF.formField
+                    <input type="hidden" value="@todo.id" name="id">
+                    <i class="far fa-trash-alt delete"></i>
+                }
+                </div>
+            </div>
+        </div>
+    }
+
+    <a href="/todo/store">Todo register form</a>
+    <br>
+    <a href="/">Back to home</a>
+}

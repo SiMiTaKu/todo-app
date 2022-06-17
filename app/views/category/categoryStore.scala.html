@@ -1,0 +1,14 @@
+@import controllers.todo.CategoryFormData
+@(form: Form[CategoryFormData], vv: model.ViewValueCommon)(implicit messageProvider: MessagesProvider, requestHeader: RequestHeader)
+
+@common.Default(vv) {
+    @helper.form(action = controllers.todo.routes.TodoController.categoryStore()) {
+        @helper.CSRF.formField
+        @helper.inputText(form("content"),
+            '_label -> "Category", '_showConstrains -> false
+        )
+        <input type="submit" value="register">
+    }
+
+    <a href = "/categoryList">Back to Category List</a>
+}

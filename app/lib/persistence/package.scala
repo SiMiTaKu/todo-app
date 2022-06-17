@@ -14,3 +14,5 @@ package object persistence {
     object UserRepository extends UserRepository
   }
 }
+
+

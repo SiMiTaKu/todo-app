@@ -5,20 +5,51 @@
 version: '3'
 
 services:
-  # MySQL
+  to_do:
+    # 利用するimageを指定。今回はjava8系で動作するsbtの最新imageを指定しています
+    image: hseeberger/scala-sbt:8u242_1.3.8_2.13.1
+    # 特にこだわりはないので、service名とcontainer名を同じにしています。
+    container_name: to_do
+    # playのデフォルト利用ポートが9000番なので9000を指定。hostからも9000でアクセスできるように設定しています
+    ports:
+      - "9000:9000"
+    # 初回起動時にキャッシュされる依存ライブラリ群をキャッシュするためにvolumesに指定
+    volumes:
+      - .:/source
+      - ./.ivy2:/root/.ivy2
+      - ./.sbt:/root/.sbt
+      - ./.cache:/root/.cache
+    working_dir: /source
+    # 端末に入って作業することが多いので、端末を割り当てる
+    tty: true
+    # 今後DB接続を行うため、ネットワークに属させる
+    networks:
+      - app-net
+
   db:
-    image: mysql:5.7
-    container_name: to_do_sample_container
+    build: ./docker/db
+    ports:
+      - "3306:3306"
+    container_name: db
+    volumes:
+      # 初期データを投入するSQLが格納されているdir
+      - ./docker/db/init:/docker-entrypoint-initdb.d
+      # 永続化するときにマウントするdir
+      - ./docker/db/mysql_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
+      # Container内にデータベースを作成
       MYSQL_DATABASE:      to_do
+      # timezoneを設定
       MYSQL_USER:          docker
       MYSQL_PASSWORD:      docker
-      TZ: 'Asia/Tokyo'
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-    volumes:
-    - ./docker/db/data:/var/lib/mysql
-    - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
-    - ./docker/db/sql:/docker-entrypoint-initdb.d
-    ports:
-      - 33306:3306
+      TZ:                  Asia/Tokyo
+    networks:
+      - app-net
+
+# 今後play, db間での通信があるためネットワークを構築
+networks:
+  app-net:
+    driver: bridge
+
+

@@ -4,7 +4,35 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                             controllers.HomeController.index
+GET     /                             controllers.todo.TodoController.home
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET     /assets/*file                 controllers.Assets.versioned(path="/public", file: Asset)
+
+GET     /categoryList                 controllers.todo.TodoController.categoryList
+
+GET     /category/$id<[0-9]+>         controllers.todo.TodoController.categoryShow(id: Long)
+
+GET     /category/store               controllers.todo.TodoController.categoryRegister
+
+POST    /category/store               controllers.todo.TodoController.categoryStore
+
+GET     /category/$id<[0-9]+>/edit    controllers.todo.TodoController.categoryEdit(id: Long)
+
+POST    /category/$id<[0-9]+>/update  controllers.todo.TodoController.categoryUpdate(id: Long)
+
+POST    /category/delete              controllers.todo.TodoController.categoryDelete
+
+GET     /todoList                     controllers.todo.TodoController.todoList
+
+GET     /todo/$id<[0-9]+>             controllers.todo.TodoController.todoShow(id: Long)
+
+GET     /todo/store                   controllers.todo.TodoController.todoRegister
+
+POST    /todo/store                   controllers.todo.TodoController.todoStore
+
+GET     /todo/$id<[0-9]+>/edit        controllers.todo.TodoController.todoEdit(id: Long)
+
+POST    /todo/$id<[0-9]+>/update      controllers.todo.TodoController.todoUpdate(id: Long)
+
+POST    /todo/delete                  controllers.todo.TodoController.todoDelete

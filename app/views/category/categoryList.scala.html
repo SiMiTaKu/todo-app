@@ -1,0 +1,41 @@
+@import model.Category
+@(categories: Seq[Category], vv: model.ViewValueCommon)(implicit messagesProvider: MessagesProvider, requestHeader: RequestHeader)
+
+@common.Default(vv){
+
+    @for(category <- categories) {
+        @* cardクリック時の遷移先を保持するためにdata-href属性を作成して設定  *@
+        <div class="card" data-href="@controllers.todo.routes.TodoController.categoryShow(category.id.getOrElse(0))">
+            <div class="card_content">
+            @category.id
+            </div>
+            <div class="card_content">
+            @category.name
+            </div>
+            <div class="card_content">
+            @category.slug
+            </div>
+            <div class="card_content">
+            @category.color
+            </div>
+            <div class="card_footer">
+                <div class="card_footer_item">
+                    <a href="@controllers.todo.routes.TodoController.categoryEdit(category.id.getOrElse(0))">
+                        <i class="far fa-edit"></i>
+                    </a>
+                </div>
+                <div class="card_footer_item">
+                @helper.form(action = controllers.todo.routes.TodoController.categoryDelete()) {
+                    @helper.CSRF.formField
+                    <input type="hidden" value="@category.id" name="id">
+                    <i class="far fa-trash-alt delete"></i>
+                }
+                </div>
+            </div>
+        </div>
+    }
+
+    <a href="/category/store">Category Register Form</a>
+    <br>
+    <a href="/">Back to home</a>
+}
